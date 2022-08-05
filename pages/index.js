@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { useRecoilState } from "recoil";
 import { countState, userState } from "../components/atoms";
+import { useClient } from "../customhook/useClient"
 
 const Home = () => {
 
   //atomの値の操作を定義（read,write)
   const [count, setCount] = useRecoilState(countState);
   const [user, setUser] = useRecoilState(userState);
+  const isClient = useClient()
 
   //count increment処理
   const increment = c => {
@@ -25,8 +27,8 @@ const Home = () => {
         <p>count:{count}</p>
         <button onClick={() => setCount(increment)}>count increment</button>
         <hr />
-        <p>user.name:{user.name}</p>
-        <p>user.age:{user.age}</p>
+        { isClient && <p>user.name:{user.name}</p> }
+        { isClient && <p>user.age:{user.age}</p> }
         <button onClick={() => setUser(updateUser)}>age increment</button>
       </div>
       <hr />
